@@ -5,8 +5,10 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
+import {CreateAccountWithEmailAndPassword} from '../../../utilities/Utilities';
 
 const SignUp = ({navigation}) => {
   const [name, setName] = useState('');
@@ -41,12 +43,23 @@ const SignUp = ({navigation}) => {
     return errors;
   };
 
+  const SignUp = (email, password) => {
+    CreateAccountWithEmailAndPassword({email, password})
+      .then(() => {
+        ToastAndroid.show('Account Created', ToastAndroid.SHORT);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   const handleSignup = () => {
     const validationErrors = getErrors(name, email, password, confirmPassword);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
       setErrors({});
+      SignUp(email, password);
       console.log('Signup Successful');
       // Proceed with sign-up logic
     }
