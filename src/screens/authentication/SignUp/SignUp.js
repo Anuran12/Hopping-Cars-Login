@@ -49,6 +49,12 @@ const SignUp = ({navigation}) => {
         ToastAndroid.show('Account Created', ToastAndroid.SHORT);
       })
       .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          return setErrors({email: 'Email already in use'});
+        }
+        if (error.code === 'auth/invalid-email') {
+          return setErrors({email: 'Email id invalid'});
+        }
         console.log(error);
       });
   };
