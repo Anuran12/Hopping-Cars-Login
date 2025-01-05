@@ -8,7 +8,11 @@ import {
   ToastAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
-import {CreateAccountWithEmailAndPassword} from '../../../utilities/Utilities';
+import {
+  CreateAccountWithEmailAndPassword,
+  SignInWithFacebook,
+  SignInWithGoogle,
+} from '../../../utilities/Utilities';
 
 const SignUp = ({navigation}) => {
   const [name, setName] = useState('');
@@ -127,8 +131,19 @@ const SignUp = ({navigation}) => {
           <TouchableOpacity onPress={handleSignup} style={styles.signin}>
             <Text style={styles.signinText}>Sign Up</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.signin}>
+          <TouchableOpacity
+            onPress={() =>
+              SignInWithGoogle().then(() =>
+                ToastAndroid.show('Signed In', ToastAndroid.SHORT),
+              )
+            }
+            style={styles.signin}>
             <Text style={styles.signinText}>Continue with Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => SignInWithFacebook()}
+            style={styles.signin}>
+            <Text style={styles.signinText}>Continue with Facebook</Text>
           </TouchableOpacity>
         </View>
 

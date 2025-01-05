@@ -12,7 +12,20 @@
           "package_name": "com.hopping_cars_login"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "758402777549-9jcpt9fr27a0qg3fcvne7702go55fgkt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hopping_cars_login",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "758402777549-a7heftpcacs8uf01um9vod5jjo9jhml7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCRAsj5DwylTR-iDRynFw8Z6vF5y5dP_8s"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758402777549-a7heftpcacs8uf01um9vod5jjo9jhml7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
