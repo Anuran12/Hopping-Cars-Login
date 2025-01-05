@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "758402777549",
+    "project_id": "hopping-cars",
+    "storage_bucket": "hopping-cars.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758402777549:android:1db4ca81e1af19d6584484",
+        "android_client_info": {
+          "package_name": "com.hopping_cars_login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRAsj5DwylTR-iDRynFw8Z6vF5y5dP_8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
