@@ -2,6 +2,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {signOutUser} from '../../../utilities/Utilities';
 import auth from '@react-native-firebase/auth';
+import theme from '../../../styles/theme';
 
 const Home = () => {
   const handleSignout = () => {
@@ -21,7 +22,7 @@ const Home = () => {
     }
     return (
       <View style={styles.avatarname}>
-        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>
           {user.displayName ? user.displayName.charAt(0).toUpperCase() : ''}
         </Text>
       </View>
@@ -30,12 +31,12 @@ const Home = () => {
 
   return (
     <View style={styles.main}>
-      <Text style={{fontSize: 20}}>Welcome</Text>
-      <Text style={styles.title}>
+      <Text style={styles.title}>Welcome</Text>
+      <Text style={styles.userName}>
         {user.displayName ? user.displayName : ''}
       </Text>
       {getAvatar()}
-      <TouchableOpacity style={styles.signout} onPress={() => handleSignout()}>
+      <TouchableOpacity style={styles.signout} onPress={handleSignout}>
         <Text style={{color: 'white'}}>Sign Out</Text>
       </TouchableOpacity>
     </View>
@@ -46,24 +47,27 @@ export default Home;
 
 const styles = StyleSheet.create({
   main: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
+    flex: 1,
+    backgroundColor: theme.backgroundColor,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
-    fontSize: 40,
-    fontWeight: '700',
-    letterSpacing: 2,
-    marginTop: 20,
-    marginBottom: 60,
+    fontSize: 30,
+    color: 'white',
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  userName: {
+    fontSize: 24,
+    color: theme.textColor,
+    marginBottom: 20,
   },
   signout: {
-    backgroundColor: 'red',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
+    backgroundColor: theme.primaryColor,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 30,
     marginTop: 15,
   },
   avatar: {
@@ -74,13 +78,10 @@ const styles = StyleSheet.create({
   avatarname: {
     height: 50,
     width: 50,
-    display: 'flex',
     borderRadius: 25,
     backgroundColor: 'lightgray',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 24,
-    color: 'black',
     marginTop: 10,
   },
 });

@@ -4,25 +4,31 @@ import {
   StatusBar,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React from 'react';
+import theme from '../../../styles/theme'; // Importing theme for consistent styling
+import Logo from '../../../assets/images/Logo.png'; // Assuming you have a logo image
 
 const OnBoarding = ({navigation}) => {
   return (
-    <View>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
+    <View style={styles.container}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={theme.backgroundColor}
+      />
       <View style={styles.sectionContainer}>
         <Text style={styles.title}>Welcome to</Text>
-        <Text style={styles.title2}>Hopping Cars</Text>
+        <Image source={Logo} style={styles.logo} />
         <Text style={styles.subTitle}>
           Elevate your vehicle's appearance with our expert detailing services,
           featuring premium multi-brand PPF and Ceramic Coating options for a
-          stunning shine. Visit US Today !
+          stunning shine. Visit us today!
         </Text>
         <TouchableOpacity
           style={styles.signin}
           onPress={() => navigation.navigate('SignIn')}>
-          <Text style={{color: 'white', fontSize: 16}}>SignIn</Text>
+          <Text style={styles.signinText}>Sign In</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -32,33 +38,40 @@ const OnBoarding = ({navigation}) => {
 export default OnBoarding;
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    height: '100%',
-    backgroundColor: 'white',
-    display: 'flex',
+  container: {
+    flex: 1,
+    backgroundColor: theme.backgroundColor,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 7,
   },
+  sectionContainer: {
+    alignItems: 'center',
+    padding: 20,
+  },
+  logo: {},
   title: {
-    fontSize: 35,
-  },
-  title2: {
-    fontSize: 40,
-    fontWeight: 800,
+    fontSize: 30,
+    color: 'white',
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   subTitle: {
+    marginTop: 20,
     textAlign: 'center',
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-    fontWeight: 500,
-    color: 'gray',
+    paddingHorizontal: 20,
+    fontSize: 16,
+    color: theme.textColor,
+    marginBottom: 20,
   },
   signin: {
-    backgroundColor: 'black',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-    marginTop: 15,
+    backgroundColor: theme.primaryColor,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 30,
+  },
+  signinText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '700',
   },
 });
