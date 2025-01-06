@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {
-  CreateAccountWithEmailAndPassword,
+  CreateAccountWithEmailandPassword,
   SignInWithFacebook,
   SignInWithGoogle,
 } from '../../../utilities/Utilities';
@@ -48,7 +48,7 @@ const SignUp = ({navigation}) => {
   };
 
   const SignUp = (email, password) => {
-    CreateAccountWithEmailAndPassword({email, password})
+    CreateAccountWithEmailandPassword({email, password})
       .then(() => {
         ToastAndroid.show('Account Created', ToastAndroid.SHORT);
       })

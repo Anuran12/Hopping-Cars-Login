@@ -40,13 +40,12 @@ const SignIn = ({navigation}) => {
     SignInEmailAndPassword({email, password})
       .then(() => ToastAndroid.show('Logged In', ToastAndroid.SHORT))
       .catch(error => {
-        // if (error.code === 'auth/user-not-found') {
-        //   return setErrors({email: 'User not found'});
-        // }
-        // if (error.code === 'auth/wrong-password') {
-        //   return setErrors({password: 'Password is incorrect'});
-        // }
-        console.log(error);
+        if (error.code === 'auth/invalid-credential') {
+          return setErrors({
+            email: 'Invalid email or password',
+            password: 'Invalid email or password',
+          });
+        }
       });
   };
 
