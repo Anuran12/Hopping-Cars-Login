@@ -14,13 +14,27 @@ const Home = () => {
   };
 
   const user = auth().currentUser;
+
+  const getAvatar = () => {
+    if (user.photoURL) {
+      return <Image source={{uri: user.photoURL}} style={styles.avatar} />;
+    }
+    return (
+      <View style={styles.avatarname}>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+          {user.displayName ? user.displayName.charAt(0).toUpperCase() : ''}
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.main}>
       <Text style={{fontSize: 20}}>Welcome</Text>
       <Text style={styles.title}>
         {user.displayName ? user.displayName : ''}
       </Text>
-      <Image source={{uri: user.photoURL}} style={styles.avatar} />
+      {getAvatar()}
       <TouchableOpacity style={styles.signout} onPress={() => handleSignout()}>
         <Text style={{color: 'white'}}>Sign Out</Text>
       </TouchableOpacity>
@@ -55,5 +69,17 @@ const styles = StyleSheet.create({
   avatar: {
     height: 50,
     width: 50,
+  },
+  avatarname: {
+    height: 50,
+    width: 50,
+    display: 'flex',
+    borderRadius: 25,
+    backgroundColor: 'lightgray',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 24,
+    color: 'black',
+    marginTop: 10,
   },
 });

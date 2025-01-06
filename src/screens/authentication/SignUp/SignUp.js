@@ -48,7 +48,7 @@ const SignUp = ({navigation}) => {
   };
 
   const SignUp = (email, password) => {
-    CreateAccountWithEmailandPassword({email, password})
+    CreateAccountWithEmailandPassword({email, password, name})
       .then(() => {
         ToastAndroid.show('Account Created', ToastAndroid.SHORT);
       })

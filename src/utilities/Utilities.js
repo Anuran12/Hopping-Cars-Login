@@ -37,9 +37,21 @@ export const SignInWithGoogle = async () => {
   }
 };
 
-export const CreateAccountWithEmailandPassword = ({email, password}) => {
-  return auth().createUserWithEmailAndPassword(email, password);
+export const CreateAccountWithEmailandPassword = async ({
+  email,
+  password,
+  name,
+}) => {
+  const userCredential = await auth().createUserWithEmailAndPassword(
+    email,
+    password,
+  );
+  await userCredential.user.updateProfile({
+    displayName: name,
+  });
+  return userCredential;
 };
+
 export const SignInEmailAndPassword = ({email, password}) => {
   return auth().signInWithEmailAndPassword(email, password);
 };
