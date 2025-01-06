@@ -11,6 +11,7 @@ import React, {useState} from 'react';
 import {
   SignInEmailAndPassword,
   signInEmailAndPassword,
+  SignInWithGoogle,
 } from '../../../utilities/Utilities';
 
 const SignIn = ({navigation}) => {
@@ -100,7 +101,13 @@ const SignIn = ({navigation}) => {
               Sign In
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.signin}>
+          <TouchableOpacity
+            onPress={() =>
+              SignInWithGoogle().then(() =>
+                ToastAndroid.show('Signed In', ToastAndroid.SHORT),
+              )
+            }
+            style={styles.signin}>
             <Text style={{color: 'white', fontSize: 16, textAlign: 'center'}}>
               Continue with Google
             </Text>
