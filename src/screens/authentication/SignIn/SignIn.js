@@ -6,13 +6,19 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  StatusBar,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import {
   SignInEmailAndPassword,
-  signInEmailAndPassword,
   SignInWithGoogle,
 } from '../../../utilities/Utilities';
+import theme from '../../../styles/theme';
+import Logo from '../../../assets/images/Logo.png';
+import CarImage from '../../../assets/images/car_image.png';
+import GoogleIcon from '../../../assets/icons/Google.png';
+import FacebookIcon from '../../../assets/icons/Facebook.png';
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -66,10 +72,37 @@ const SignIn = ({navigation}) => {
 
   return (
     <View
-      style={{paddingHorizontal: 20, backgroundColor: 'white', height: '100%'}}>
-      <ScrollView>
-        <Text style={styles.title}>Welcome Back</Text>
+      style={{
+        paddingHorizontal: 20,
+        backgroundColor: theme.backgroundColor,
+        height: '100%',
+      }}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={theme.backgroundColor}
+      />
+      <ScrollView
+        contentContainerStyle={styles.main}
+        showsVerticalScrollIndicator={false}>
+        <View style={{}}>
+          <Image source={Logo} />
+          <Text style={{color: 'white', textAlign: 'right'}}>
+            Detailing Studio
+          </Text>
+        </View>
+        <View
+          style={{
+            width: '100%',
+            alignItems: 'center',
+            paddingTop: 50,
+            paddingBottom: 30,
+            display: 'flex',
+            paddingHorizontal: 50,
+          }}>
+          <Image source={CarImage} style={styles.car} />
+        </View>
         <View style={{width: '100%'}}>
+          <Text style={styles.title}>Login</Text>
           <View style={styles.form}>
             <TextInput
               placeholder="Enter Email"
@@ -88,6 +121,16 @@ const SignIn = ({navigation}) => {
               value={password}
               onChangeText={e => setPassword(e)}
               style={styles.input}></TextInput>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 13,
+                  color: theme.secondaryColor,
+                  textAlign: 'right',
+                }}>
+                Forgot Password?
+              </Text>
+            </TouchableOpacity>
             {errors.password && (
               <Text style={{fontSize: 14, color: 'red'}}>
                 {errors.password}
@@ -97,39 +140,74 @@ const SignIn = ({navigation}) => {
           <TouchableOpacity
             onPress={() => handleSignin()}
             style={styles.signin}>
-            <Text style={{color: 'white', fontSize: 16, textAlign: 'center'}}>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 16,
+                textAlign: 'center',
+                fontWeight: '800',
+              }}>
               Sign In
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              SignInWithGoogle().then(() =>
-                ToastAndroid.show('Signed In', ToastAndroid.SHORT),
-              )
-            }
-            style={styles.signin}>
-            <Text style={{color: 'white', fontSize: 16, textAlign: 'center'}}>
-              Continue with Google
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            paddingVertical: 15,
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
+
+          <View style={styles.continueWith}>
+            <View style={styles.line} />
+            <Text style={styles.orText}>Or Sign In With</Text>
+            <View style={styles.line} />
+          </View>
+          <View
             style={{
-              textAlign: 'center',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 15,
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'gray',
             }}>
-            don't have an account?
+            <TouchableOpacity
+              onPress={() =>
+                SignInWithGoogle().then(() =>
+                  ToastAndroid.show('Signed In', ToastAndroid.SHORT),
+                )
+              }
+              style={styles.signinwith}>
+              <Image source={GoogleIcon} style={{width: 20, height: 20}} />
+              <Text
+                style={{
+                  color: '#222222',
+                  fontSize: 16,
+                  textAlign: 'center',
+                  fontWeight: '700',
+                }}>
+                Google
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                SignInWithGoogle().then(() =>
+                  ToastAndroid.show('Signed In', ToastAndroid.SHORT),
+                )
+              }
+              style={styles.signinwith}>
+              <Image source={FacebookIcon} style={{width: 20, height: 20}} />
+              <Text
+                style={{
+                  color: '#222222',
+                  fontSize: 16,
+                  textAlign: 'center',
+                  fontWeight: '700',
+                }}>
+                Facebook
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.signupContainer}>
+          <Text style={styles.signupText}>
+            Don't have an account?{' '}
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-              <Text> Sign Up</Text>
+              <Text style={styles.signupLink}>Join Us</Text>
             </TouchableOpacity>
           </Text>
         </View>
@@ -141,33 +219,97 @@ const SignIn = ({navigation}) => {
 export default SignIn;
 
 const styles = StyleSheet.create({
+  main: {
+    width: '100%',
+    paddingVertical: 10,
+    paddingTop: 40,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
-    fontSize: 30,
-    textAlign: 'center',
-    marginVertical: 20,
-    marginBottom: 80,
-    color: 'black',
-    letterSpacing: 2,
-    fontWeight: '500',
+    fontSize: 22,
+    textAlign: 'left',
+    color: 'white',
+    fontWeight: '900',
+    marginBottom: 20,
   },
   form: {
     width: '100%',
     marginBottom: 20,
   },
   input: {
-    paddingVertical: 10,
+    paddingVertical: 15,
     paddingHorizontal: 20,
     marginVertical: 10,
     fontSize: 14,
     color: 'black',
     borderRadius: 10,
-    backgroundColor: 'lightgray',
+    backgroundColor: 'transparent',
+    borderColor: theme.inputBorderColor,
+    borderWidth: 1,
+    borderRadius: 25,
   },
   signin: {
-    backgroundColor: 'black',
-    paddingVertical: 8,
+    backgroundColor: theme.primaryColor,
+    paddingVertical: 16,
     paddingHorizontal: 16,
-    borderRadius: 20,
-    marginTop: 15,
+    borderRadius: 40,
+  },
+  signinwith: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+    width: '45%',
+    backgroundColor: 'white',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 40,
+  },
+  car: {
+    width: 300,
+    height: 130,
+    resizeMode: 'contain',
+  },
+  continueWith: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    marginVertical: 12,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#F2F2F2',
+    marginHorizontal: 10,
+  },
+
+  orText: {
+    fontSize: 14,
+    color: theme.textColor,
+    fontWeight: '600',
+  },
+  signupContainer: {
+    paddingVertical: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+
+  signupText: {
+    fontSize: 14,
+    fontWeight: '400',
+    textAlign: 'center',
+    color: 'gray',
+  },
+
+  signupLink: {
+    fontWeight: '700',
+    color: theme.secondaryColor,
+    textDecorationLine: 'underline',
   },
 });
