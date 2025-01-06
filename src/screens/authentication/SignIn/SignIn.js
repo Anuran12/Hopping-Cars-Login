@@ -5,8 +5,13 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
+import {
+  SignInEmailAndPassword,
+  signInEmailAndPassword,
+} from '../../../utilities/Utilities';
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -20,7 +25,7 @@ const SignIn = ({navigation}) => {
     if (!email) {
       errors.email = 'Please Enter Email';
     } else if (!email.includes('@') || !email.includes('.com')) {
-      errors.email = 'Please Valid Email';
+      errors.email = 'Please Enter a Valid Email';
     }
 
     if (!password) {
@@ -31,17 +36,31 @@ const SignIn = ({navigation}) => {
     return errors;
   };
 
+  const SignInhandle = (email, password) => {
+    SignInEmailAndPassword({email, password})
+      .then(() => ToastAndroid.show('Logged In', ToastAndroid.SHORT))
+      .catch(error => {
+        // if (error.code === 'auth/user-not-found') {
+        //   return setErrors({email: 'User not found'});
+        // }
+        // if (error.code === 'auth/wrong-password') {
+        //   return setErrors({password: 'Password is incorrect'});
+        // }
+        console.log(error);
+      });
+  };
+
   const handleSignin = () => {
     const errors = getErrors(email, password);
 
     if (Object.keys(errors).length > 0) {
       setShowErrors(true);
-      setErrors(showErrors && errors);
+      setErrors(errors);
       console.log(errors);
     } else {
       setErrors({});
       setShowErrors(false);
-      console.log('signin');
+      SignInhandle(email, password);
     }
   };
 
@@ -65,7 +84,7 @@ const SignIn = ({navigation}) => {
             <TextInput
               placeholder="Password"
               placeholderTextColor="gray"
-              keyboardType="password"
+              secureTextEntry={true}
               value={password}
               onChangeText={e => setPassword(e)}
               style={styles.input}></TextInput>
