@@ -31,6 +31,10 @@ const Home = () => {
 
   return (
     <View style={styles.main}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={theme.backgroundColor}
+      />
       <Text style={styles.title}>Welcome</Text>
       <Text style={styles.userName}>
         {user.displayName ? user.displayName : ''}
