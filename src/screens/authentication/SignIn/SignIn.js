@@ -19,10 +19,13 @@ import Logo from '../../../assets/images/Logo.png';
 import CarImage from '../../../assets/images/car_image.png';
 import GoogleIcon from '../../../assets/icons/Google.png';
 import FacebookIcon from '../../../assets/icons/Facebook.png';
+import EyeIcon from '../../../assets/icons/eye.png';
+import EyeoffIcon from '../../../assets/icons/eye-off.png';
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
 
   const [showErrors, setShowErrors] = useState(false);
   const [errors, setErrors] = useState({});
@@ -104,38 +107,66 @@ const SignIn = ({navigation}) => {
         <View style={{width: '100%'}}>
           <Text style={styles.title}>Login</Text>
           <View style={styles.form}>
-            <TextInput
-              placeholder="Enter Email"
-              placeholderTextColor="gray"
-              keyboardType="email-address"
-              value={email}
-              onChangeText={e => setEmail(e)}
-              style={styles.input}></TextInput>
-            {errors.email && (
-              <Text style={{fontSize: 14, color: 'red'}}>{errors.email}</Text>
-            )}
-            <TextInput
-              placeholder="Password"
-              placeholderTextColor="gray"
-              secureTextEntry={true}
-              value={password}
-              onChangeText={e => setPassword(e)}
-              style={styles.input}></TextInput>
-            <TouchableOpacity>
-              <Text
+            <View style={{width: '100%'}}>
+              <TextInput
+                placeholder="Enter Email"
+                placeholderTextColor="gray"
+                keyboardType="email-address"
+                value={email}
+                onChangeText={e => setEmail(e)}
+                style={styles.input}></TextInput>
+              {errors.email && (
+                <Text style={{fontSize: 14, color: 'red'}}>{errors.email}</Text>
+              )}
+            </View>
+            <View style={{width: '100%'}}>
+              <View
                 style={{
-                  fontSize: 13,
-                  color: theme.secondaryColor,
-                  textAlign: 'right',
+                  width: '100%',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  backgroundColor: 'transparent',
+                  borderColor: theme.inputBorderColor,
+                  borderWidth: 1,
+                  borderRadius: 25,
+                  marginVertical: 10,
                 }}>
-                Forgot Password?
-              </Text>
-            </TouchableOpacity>
-            {errors.password && (
-              <Text style={{fontSize: 14, color: 'red'}}>
-                {errors.password}
-              </Text>
-            )}
+                <TextInput
+                  placeholder="Password"
+                  placeholderTextColor="gray"
+                  secureTextEntry={hidePassword}
+                  value={password}
+                  onChangeText={e => setPassword(e)}
+                  style={styles.input1}></TextInput>
+                {password.length > 0 && (
+                  <TouchableOpacity
+                    onPress={() => setHidePassword(!hidePassword)}
+                    style={{marginRight: 16}}>
+                    <Image
+                      source={hidePassword ? EyeoffIcon : EyeIcon}
+                      style={{width: 20, height: 20}}
+                    />
+                  </TouchableOpacity>
+                )}
+              </View>
+
+              {errors.password && (
+                <Text style={{fontSize: 14, color: 'red'}}>
+                  {errors.password}
+                </Text>
+              )}
+              <TouchableOpacity>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    color: theme.secondaryColor,
+                    textAlign: 'right',
+                  }}>
+                  Forgot Password?
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <TouchableOpacity
             onPress={() => handleSignin()}
@@ -243,12 +274,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginVertical: 10,
     fontSize: 14,
-    color: 'black',
-    borderRadius: 10,
+    color: 'white',
     backgroundColor: 'transparent',
     borderColor: theme.inputBorderColor,
     borderWidth: 1,
     borderRadius: 25,
+  },
+  input1: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+
+    fontSize: 14,
+    color: 'white',
+    backgroundColor: 'transparent',
   },
   signin: {
     backgroundColor: theme.primaryColor,

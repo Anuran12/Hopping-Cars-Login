@@ -137,7 +137,15 @@ const SignUp = ({navigation}) => {
         </View>
 
         <TouchableOpacity onPress={handleSignup} style={styles.signin}>
-          <Text style={styles.signinText}>Sign Up</Text>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 16,
+              textAlign: 'center',
+              fontWeight: '800',
+            }}>
+            Sign Up
+          </Text>
         </TouchableOpacity>
 
         <View style={styles.continueWith}>
@@ -208,13 +216,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginVertical: 10,
     fontSize: 14,
-    color: 'black',
+    color: 'white',
     borderRadius: 25,
     backgroundColor: 'transparent',
     borderColor: theme.inputBorderColor,
     borderWidth: 1,
   },
   signin: {
+    width: '100%',
     backgroundColor: theme.primaryColor,
     paddingVertical: 16,
     paddingHorizontal: 16,
