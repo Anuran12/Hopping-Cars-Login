@@ -2,13 +2,15 @@ import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 
+// Configure Google Sign-In
 GoogleSignin.configure({
   webClientId:
     '758402777549-a7heftpcacs8uf01um9vod5jjo9jhml7.apps.googleusercontent.com',
-  offlineAccess: true, // Ensures a refresh token is returned
-  forceCodeForRefreshToken: true, // Forces prompt for reauthentication
+  offlineAccess: true,
+  forceCodeForRefreshToken: true,
 });
 
+// Function to sign in with Google
 export const SignInWithGoogle = async () => {
   try {
     // Ensure Google Play Services are available
@@ -17,10 +19,7 @@ export const SignInWithGoogle = async () => {
     // Perform Google Sign-In
     const userInfo = await GoogleSignin.signIn();
 
-    console.log('User Info:', userInfo.data); // Log full user info for debugging
-
-    // Extract ID token from the response
-    const idToken = userInfo?.data?.idToken; // Correctly access the idToken property
+    const idToken = userInfo?.data?.idToken;
 
     if (!idToken) {
       throw new Error('No ID token found');
@@ -29,8 +28,6 @@ export const SignInWithGoogle = async () => {
     // Create Google credential and sign in with Firebase
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     const userCredential = await auth().signInWithCredential(googleCredential);
-
-    console.log('Signed in with Google:', userCredential.user);
     return userCredential;
   } catch (error) {
     console.error('Error signing in with Google:', error);
@@ -38,6 +35,7 @@ export const SignInWithGoogle = async () => {
   }
 };
 
+// Function to create a new account using email and password
 export const CreateAccountWithEmailandPassword = async ({
   email,
   password,
@@ -53,10 +51,12 @@ export const CreateAccountWithEmailandPassword = async ({
   return userCredential;
 };
 
+// Function to sign in using email and password
 export const SignInEmailAndPassword = ({email, password}) => {
   return auth().signInWithEmailAndPassword(email, password);
 };
 
+// Function to sign out the user
 export const signOutUser = async () => {
   try {
     // Sign out from Firebase
@@ -72,10 +72,11 @@ export const signOutUser = async () => {
   }
 };
 
+// Function to sign in with Facebook
 export const SignInWithFacebook = async () => {
   // Attempt login with permissions
   try {
-    console.log('Starting Facebook Login');
+    // Start Facebook login process with requested permissions
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
       'email',
@@ -86,8 +87,6 @@ export const SignInWithFacebook = async () => {
       throw new Error('User cancelled the login process');
     }
 
-    console.log('Facebook Login Result:', result);
-
     const data = await AccessToken.getCurrentAccessToken();
 
     if (!data) {
@@ -97,16 +96,15 @@ export const SignInWithFacebook = async () => {
 
     console.log('Access Token:', data);
 
+    // Create Facebook credentials for Firebase authentication
     const facebookCredential = auth.FacebookAuthProvider.credential(
       data.accessToken,
     );
 
-    console.log('Facebook Credential:', facebookCredential);
-
+    // Sign in to Firebase using Facebook credentials
     const userCredential = await auth().signInWithCredential(
       facebookCredential,
     );
-    console.log('Firebase User Credential:', userCredential);
 
     return userCredential;
   } catch (error) {

@@ -26,6 +26,7 @@ const SignUp = ({navigation}) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
 
+  // Helper function to validate email and password inputs
   const getErrors = (name, email, password, confirmPassword) => {
     const errors = {};
     if (!name) {
@@ -52,6 +53,7 @@ const SignUp = ({navigation}) => {
     return errors;
   };
 
+  // Function to handle sign-up button press
   const handleSignup = () => {
     const validationErrors = getErrors(name, email, password, confirmPassword);
     if (Object.keys(validationErrors).length > 0) {
@@ -91,6 +93,7 @@ const SignUp = ({navigation}) => {
           </Text>
         </View>
         <Text style={styles.title}>Create Account</Text>
+        {/* Signup form */}
         <View style={styles.form}>
           <TextInput
             placeholder="Enter Name"
@@ -136,6 +139,7 @@ const SignUp = ({navigation}) => {
           )}
         </View>
 
+        {/* Signup button */}
         <TouchableOpacity onPress={handleSignup} style={styles.signin}>
           <Text
             style={{
@@ -148,6 +152,7 @@ const SignUp = ({navigation}) => {
           </Text>
         </TouchableOpacity>
 
+        {/* Alternate sign-up methods */}
         <View style={styles.continueWith}>
           <View style={styles.line} />
           <Text style={styles.orText}>Or Sign Up With</Text>

@@ -28,9 +28,9 @@ const SignIn = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
 
-  const [showErrors, setShowErrors] = useState(false);
   const [errors, setErrors] = useState({});
 
+  // Helper function to validate email and password inputs
   const getErrors = (email, password) => {
     const errors = {};
     if (!email) {
@@ -47,6 +47,7 @@ const SignIn = ({navigation}) => {
     return errors;
   };
 
+  // Function to handle sign-in using email and password
   const SignInhandle = (email, password) => {
     SignInEmailAndPassword({email, password})
       .then(() => ToastAndroid.show('Logged In', ToastAndroid.SHORT))
@@ -60,17 +61,16 @@ const SignIn = ({navigation}) => {
       });
   };
 
+  // Function to validate inputs and initiate sign-in
   const handleSignin = () => {
     const errors = getErrors(email, password);
 
     if (Object.keys(errors).length > 0) {
-      setShowErrors(true);
-      setErrors(errors);
+      setErrors(errors); // Display validation errors
       console.log(errors);
     } else {
       setErrors({});
-      setShowErrors(false);
-      SignInhandle(email, password);
+      SignInhandle(email, password); // Proceed with sign-in
     }
   };
 
@@ -105,6 +105,7 @@ const SignIn = ({navigation}) => {
           }}>
           <Image source={CarImage} style={styles.car} />
         </View>
+        {/* Login form */}
         <View style={{width: '100%'}}>
           <Text style={styles.title}>Login</Text>
           <View style={styles.form}>
@@ -169,6 +170,7 @@ const SignIn = ({navigation}) => {
               </TouchableOpacity>
             </View>
           </View>
+          {/* Sign-in button */}
           <TouchableOpacity
             onPress={() => handleSignin()}
             style={styles.signin}>
@@ -183,6 +185,7 @@ const SignIn = ({navigation}) => {
             </Text>
           </TouchableOpacity>
 
+          {/* Alternate sign-in methods */}
           <View style={styles.continueWith}>
             <View style={styles.line} />
             <Text style={styles.orText}>Or Sign In With</Text>

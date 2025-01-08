@@ -1,9 +1,9 @@
 const theme = {
-  primaryColor: '#F8623A', // Example primary color (orange)
-  secondaryColor: '#EA9459', // Example secondary color (white)
-  backgroundColor: '#1A1919', // Background color (black)
-  textColor: '#888888', // Text color (white)
-  inputBorderColor: '#6D6C6C', // Input border color (light gray)
+  primaryColor: '#F8623A',
+  secondaryColor: '#EA9459',
+  backgroundColor: '#1A1919',
+  textColor: '#888888',
+  inputBorderColor: '#6D6C6C',
 };
 
 export default theme;
