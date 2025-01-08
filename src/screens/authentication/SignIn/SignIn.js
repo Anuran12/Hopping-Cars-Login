@@ -12,6 +12,7 @@ import {
 import React, {useState} from 'react';
 import {
   SignInEmailAndPassword,
+  SignInWithFacebook,
   SignInWithGoogle,
 } from '../../../utilities/Utilities';
 import theme from '../../../styles/theme';
@@ -215,11 +216,7 @@ const SignIn = ({navigation}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                SignInWithGoogle().then(() =>
-                  ToastAndroid.show('Signed In', ToastAndroid.SHORT),
-                )
-              }
+              onPress={() => SignInWithFacebook()}
               style={styles.signinwith}>
               <Image source={FacebookIcon} style={{width: 20, height: 20}} />
               <Text

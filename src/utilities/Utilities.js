@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 
 GoogleSignin.configure({
   webClientId:
@@ -71,6 +72,45 @@ export const signOutUser = async () => {
   }
 };
 
-export const SignInWithFacebook = () => {
-  return console.log('facebook');
+export const SignInWithFacebook = async () => {
+  // Attempt login with permissions
+  try {
+    console.log('Starting Facebook Login');
+    const result = await LoginManager.logInWithPermissions([
+      'public_profile',
+      'email',
+    ]);
+
+    if (result.isCancelled) {
+      console.warn('User cancelled the login process');
+      throw new Error('User cancelled the login process');
+    }
+
+    console.log('Facebook Login Result:', result);
+
+    const data = await AccessToken.getCurrentAccessToken();
+
+    if (!data) {
+      console.error('No access token obtained');
+      throw new Error('Something went wrong obtaining access token');
+    }
+
+    console.log('Access Token:', data);
+
+    const facebookCredential = auth.FacebookAuthProvider.credential(
+      data.accessToken,
+    );
+
+    console.log('Facebook Credential:', facebookCredential);
+
+    const userCredential = await auth().signInWithCredential(
+      facebookCredential,
+    );
+    console.log('Firebase User Credential:', userCredential);
+
+    return userCredential;
+  } catch (error) {
+    console.error('Error signing in with Facebook:', error);
+    throw error;
+  }
 };

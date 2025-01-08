@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+} from 'react-native';
 import React from 'react';
 import {signOutUser} from '../../../utilities/Utilities';
 import auth from '@react-native-firebase/auth';
